@@ -11,8 +11,8 @@ repositories {
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/") // new repository here
 }
 
-//group = "my.fritz2.app"
-//version = "0.0.1-SNAPSHOT"
+group = "my.fritz2.app"
+version = "0.0.1-SNAPSHOT"
 
 kotlin {
     jvm()
@@ -36,7 +36,6 @@ kotlin {
                 // tailwind
                 implementation(npm(libs.tailwindcss.core))
                 implementation(npm(libs.tailwindcss.typography))
-                //implementation(npm(libs.tailwindcss.forms)) // optional
 
                 // webpack
                 implementation(npm(libs.postcss.core))
@@ -45,6 +44,7 @@ kotlin {
                 implementation(npm(libs.css.loader))
                 implementation(npm(libs.style.loader))
                 implementation(npm(libs.cssnano))
+                implementation(npm(libs.minicssextractplugin))
             }
         }
     }

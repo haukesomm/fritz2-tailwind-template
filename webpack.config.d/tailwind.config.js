@@ -1,7 +1,7 @@
-// must be in the jsMain/resource folder
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const mainCssFile = 'styles.css';
 
-// tailwind config (https://tailwindcss.com/docs/configuration)
 const tailwind = {
     darkMode: 'media',
     plugins: [
@@ -27,25 +27,29 @@ const tailwind = {
 
 // webpack tailwind css settings
 ((config) => {
-    let entry = '/kotlin/' + mainCssFile;
-    config.entry.main.push(entry);
+    config.entry.main.push('/kotlin/' + mainCssFile);
     config.module.rules.push({
-        test: /\.css$/,
+        test: /.css$/,
         use: [
-            {loader: 'style-loader'},
+            {loader: MiniCssExtractPlugin.loader},
             {loader: 'css-loader'},
             {
                 loader: 'postcss-loader',
                 options: {
                     postcssOptions: {
                         plugins: [
-                            require("tailwindcss")({config: tailwind}),
-                            require("autoprefixer"),
-                            require("cssnano")
+                            require('tailwindcss')({config: tailwind}),
+                            require('autoprefixer'),
+                            require('cssnano')
                         ]
                     }
                 }
             }
         ]
     });
+    config.plugins.push(
+        new MiniCssExtractPlugin({
+            filename: mainCssFile
+        })
+    );
 })(config);
